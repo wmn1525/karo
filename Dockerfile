@@ -1,8 +1,13 @@
-# Use the official nginx image as the base image
-FROM nginx
+FROM ubuntu:latest
 
-# Copy the HTML resources from the host machine to the container
-COPY ./ /usr/share/nginx/html
+RUN apt-get update && apt-get install -y vim &&  apt-get install -y nginx
 
-# Expose port 80 for HTTP traffic
+RUN cd usr/share/nginx/html && rm -f *
+
+
+COPY ./ usr/share/nginx/
+
 EXPOSE 80
+
+
+CMD ["nginx","-g","daemon off;"]
